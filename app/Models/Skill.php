@@ -15,7 +15,7 @@ class Skill extends Model
     {
         return $this->belongsToMany(Employee::class, 'employee_skill')
             ->withPivot('proficiency_level', 'years_of_experience')
-            ->withTimeStamps();
+            ->withTimestamps();
     }
     public function projectRequirements()
     {

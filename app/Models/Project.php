@@ -24,11 +24,11 @@ class Project extends Model
         'deadline' => 'date',
     ];
 
-    public function skillRequirement()
+    public function skillRequirements()
     {
-        return $this->belongsToMany(Skill::class, 'project_skill_requirements')
+        return $this->belongsToMany(Skill::class, 'projects_skill_requirements')
             ->withPivot('required_proficiency', 'required_hours')
-            ->withTimeStamps();
+            ->withTimestamps();
     }
 
     public function allocations()

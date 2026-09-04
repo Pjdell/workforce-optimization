@@ -29,7 +29,7 @@ class Employee extends Model
     {
         return $this->belongsToMany(Skill::class, 'employee_skill')
             ->withPivot('proficiency_level', 'years_of_experience')
-            ->withTimeStamp();
+            ->withTimestamps();
     }
 
     public function allocations()
