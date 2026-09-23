@@ -9,7 +9,7 @@ class Allocation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'emmployee_id',
+        'employee_id',
         'project_id',
         'allocated_hours',
         'start_date',
@@ -23,12 +23,22 @@ class Allocation extends Model
         'start_date' => 'date',
         'end_date' => 'date',
         'allocation_score' => 'float',
-
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('organization', function ($builder) {
+            if (auth()->check() && auth()->user()->organization_id) {
+                $builder->whereHas('employee', function ($q) {
+                    $q->where('employees.organization_id', auth()->user()->organization_id);
+                });
+            }
+        });
+    }
 
     public function employee()
     {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsTo(Employee::class);
     }
 
     public function project()

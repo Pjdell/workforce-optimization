@@ -43,6 +43,8 @@ class ProjectController extends Controller
             'estimated_hours' => 'integer|min:0',
         ]);
 
+        $validated['organization_id'] = $request->user()->organization_id;
+
         $project = Project::create($validated);
         return response()->json($project->load('skillRequirements'), 201);
     }

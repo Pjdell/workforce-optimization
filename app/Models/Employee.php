@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToOrganization;
 
     protected $fillable = [
+        'user_id',
+        'organization_id',
         'name',
         'email',
         'role',
@@ -24,6 +27,16 @@ class Employee extends Model
         'availability_start' => 'date',
         'availability_end' => 'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 
     public function skills()
     {

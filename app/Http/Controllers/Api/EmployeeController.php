@@ -50,6 +50,8 @@ class EmployeeController extends Controller
             'availability_end' => 'nullable|date|after_or_equal:availability_start',
         ]);
 
+        $validated['organization_id'] = $request->user()->organization_id;
+
         $employee = Employee::create($validated);
         return response()->json($employee->load(['skills', 'preferences']), 201);
     }

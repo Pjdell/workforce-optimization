@@ -1635,7 +1635,7 @@ Now run everything:
 
 ```powershell
 php artisan migrate:fresh --seed
-```
+```doneeee
 
 ---
 
@@ -1670,7 +1670,7 @@ php artisan route:list --path=api
 
 All endpoints should return JSON data. If they do, your **entire backend is complete for Phases 1–2**.
 
----
+---DONEE!!!
 
 ## Phase 2 — React Frontend Setup
 
@@ -1682,7 +1682,7 @@ From the project root:
 # Install React and related packages
 npm install react react-dom react-router-dom axios recharts lucide-react
 npm install -D @vitejs/plugin-react
-```
+```DONEEE!!!
 
 ---
 
@@ -2046,7 +2046,7 @@ export default function DashboardPage() {
         </div>
     );
 }
-```
+```DONEEEEEEEEEEE
 
 ---
 
@@ -2274,7 +2274,7 @@ export default function EmployeesPage() {
         </div>
     );
 }
-```
+```DONEEEEEEEEE
 
 ---
 

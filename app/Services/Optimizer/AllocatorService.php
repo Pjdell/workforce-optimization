@@ -37,6 +37,12 @@ class AllocatorService
                 }
 
                 $result = $this->scoringService->compositeScore($employee, $project, $employees);
+
+                // Skip employees with zero skill match when the project has requirements
+                if ($result['details']['skill_match']['score'] <= 0 && $project->skillRequirements->isNotEmpty()) {
+                    continue;
+                }
+
                 $candidates[] = [
                     'employee' => $employee,
                     'score' => $result['score'],
