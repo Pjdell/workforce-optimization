@@ -3,10 +3,10 @@ import api from '../api/client';
 import { Plus, Clock, Users, X, Trash2 } from 'lucide-react';
 
 const priorityColors = {
-    critical: 'bg-red-500/20 text-red-400 border-red-500/30',
-    high: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    medium: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    low: 'bg-gray-500/20 text-gray-400 border-gray-500/30',
+    critical: ' text-red-400 ',
+    high: ' text-orange-400 ',
+    medium: ' text-blue-400 ',
+    low: 'text-gray-400',
 };
 
 const priorityBarColors = {
@@ -138,7 +138,8 @@ export default function ProjectsPage() {
             }
 
             // 2. Create the project
-            const res = await api.post('/projects', form);
+            const payload = { ...form, estimated_hours: form.estimated_hours === '' ? 0 : form.estimated_hours };
+            const res = await api.post('/projects', payload);
             const project = res.data;
 
             // 3. Attach skill requirements if any were specified
@@ -188,8 +189,8 @@ export default function ProjectsPage() {
                             <div className="p-5">
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className="font-semibold text-base">{p.name}</h3>
-                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${priorityColors[p.priority]}`}>
-                                        {p.priority}
+                                    <span className={`px-2 py-0.5  text-xs font-medium  ${priorityColors[p.priority]}`}>
+                                        {p.priority.toUpperCase()}
                                     </span>
                                 </div>
                                 <p className="text-sm text-gray-500 mb-4 line-clamp-2">{p.description}</p>
@@ -223,7 +224,7 @@ export default function ProjectsPage() {
                                 {/* Skill Tags */}
                                 <div className="flex flex-wrap gap-1">
                                     {(p.skill_requirements || []).map(s => (
-                                        <span key={s.id} className="px-2 py-0.5 rounded-full text-xs bg-gray-800 text-gray-400">
+                                        <span key={s.id} className="px-1 py-0.5  text-gray-500">
                                             {s.name}
                                         </span>
                                     ))}
@@ -243,59 +244,59 @@ export default function ProjectsPage() {
             {/* Add Project Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50" onClick={() => setShowModal(false)}>
-                    <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+                    <div className="bg-[#243630] border border-gray-700 rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between mb-5">
-                            <h3 className="text-lg font-bold">Add Project</h3>
+                            <h3 className="text-lg text-white font-bold">Add Project</h3>
                             <button onClick={() => setShowModal(false)} className="text-gray-400 hover:text-white"><X size={18} /></button>
                         </div>
                         <form onSubmit={handleSave} className="space-y-4">
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Name</label>
-                                <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" required />
+                                <label className="block text-sm text-white mb-1">Name</label>
+                                <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" required />
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Description</label>
-                                <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" rows="3" />
+                                <label className="block text-sm text-white mb-1">Description</label>
+                                <textarea value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" rows="3" />
                             </div>
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-sm text-gray-400 mb-1">Priority</label>
-                                    <select value={form.priority} onChange={e => setForm({ ...form, priority: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-                                        <option value="low">Low</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="high">High</option>
-                                        <option value="critical">Critical</option>
+                                    <label className="block text-sm text-white mb-1">Priority</label>
+                                    <select value={form.priority} onChange={e => setForm({ ...form, priority: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                                        <option value="low" className="text-black">Low</option>
+                                        <option value="medium" className="text-black">Medium</option>
+                                        <option value="high" className="text-black">High</option>
+                                        <option value="critical" className="text-black">Critical</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-gray-400 mb-1">Status</label>
-                                    <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
-                                        <option value="planning">Planning</option>
-                                        <option value="active">Active</option>
-                                        <option value="on_hold">On Hold</option>
-                                        <option value="completed">Completed</option>
+                                    <label className="block text-sm text-white mb-1">Status</label>
+                                    <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+                                        <option value="planning" className="text-black">Planning</option>
+                                        <option value="active" className="text-black">Active</option>
+                                        <option value="on_hold" className="text-black">On Hold</option>
+                                        <option value="completed" className="text-black">Completed</option>
                                     </select>
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Estimated Hours</label>
-                                <input type="number" value={form.estimated_hours} onChange={e => setForm({ ...form, estimated_hours: parseInt(e.target.value) || 0 })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" min="0" />
+                                <label className="block text-sm text-white mb-1">Estimated Hours</label>
+                                <input type="number" value={form.estimated_hours} onChange={e => setForm({ ...form, estimated_hours: e.target.value === '' ? '' : parseInt(e.target.value) || 0 })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" min="0" />
                             </div>
                             <div className="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label className="block text-sm text-gray-400 mb-1">Start Date</label>
-                                    <input type="date" value={form.start_date} onChange={e => setForm({ ...form, start_date: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+                                    <label className="block text-sm text-white mb-1">Start Date</label>
+                                    <input type="date" value={form.start_date} onChange={e => setForm({ ...form, start_date: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-gray-400 mb-1">Deadline</label>
-                                    <input type="date" value={form.deadline} onChange={e => setForm({ ...form, deadline: e.target.value })} className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
+                                    <label className="block text-sm text-white mb-1">Deadline</label>
+                                    <input type="date" value={form.deadline} onChange={e => setForm({ ...form, deadline: e.target.value })} className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500" />
                                 </div>
                             </div>
 
                             {/* ── Skill Requirements Section ─────────────────── */}
                             <div className="border-t border-gray-700 pt-4">
                                 <div className="flex items-center justify-between mb-3">
-                                    <label className="block text-sm font-medium text-gray-300">Skill Requirements</label>
+                                    <label className="block text-sm font-medium text-white">Skill Requirements</label>
                                     <button
                                         type="button"
                                         onClick={addSkillRequirement}
@@ -419,7 +420,7 @@ export default function ProjectsPage() {
                                 </div>
                             </div>
 
-                            <button type="submit" disabled={saving} className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50">
+                            <button type="submit" disabled={saving} className="w-full bg-[#c85f31] hover:bg-blue-700 text-white py-2.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50">
                                 {saving ? 'Creating...' : 'Create Project'}
                             </button>
                         </form>

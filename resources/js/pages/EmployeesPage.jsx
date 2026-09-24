@@ -347,32 +347,32 @@ export default function EmployeesPage() {
                         <form onSubmit={handleSave} className="space-y-4">
                             {['name', 'email', 'role', 'department'].map(field => (
                                 <div key={field}>
-                                    <label className="block text-sm text-gray-400 mb-1 capitalize">{field}</label>
+                                    <label className="block text-sm text-white mb-1 capitalize">{field}</label>
                                     <input
                                         type={field === 'email' ? 'email' : 'text'}
                                         value={form[field]}
                                         onChange={e => setForm({ ...form, [field]: e.target.value })}
-                                        className="w-full bg-white border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                                        className="w-full bg-white/10 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                                         required
                                     />
                                 </div>
                             ))}
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Max Weekly Hours</label>
+                                <label className="block text-sm text-white mb-1">Max Weekly Hours</label>
                                 <input
                                     type="number"
                                     value={form.max_weekly_hours}
                                     onChange={e => setForm({ ...form, max_weekly_hours: parseInt(e.target.value) })}
-                                    className="w-full bg-white border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                                    className="w-full bg-white/10 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                                     min="1" max="168"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm text-gray-400 mb-1">Work Preference</label>
+                                <label className="block text-sm text-white mb-1">Work Preference</label>
                                 <select
                                     value={form.remote_preference}
                                     onChange={e => setForm({ ...form, remote_preference: e.target.value })}
-                                    className="w-full bg-white border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                                    className="w-full bg-white/10 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                                 >
                                     <option value="remote">Remote</option>
                                     <option value="onsite">Onsite</option>
@@ -382,7 +382,7 @@ export default function EmployeesPage() {
 
                             {/* Skills Section */}
                             <div>
-                                <label className="block text-sm text-gray-400 mb-2">Skills</label>
+                                <label className="block text-sm text-white mb-2">Skills</label>
                                 {renderSkillRows(formSkills, setFormSkills)}
                             </div>
 
